@@ -100,11 +100,7 @@ async def rekap(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_message = update.message.text
     chat_id = str(update.effective_user.id)
-
-    # Ambil nama fasilitator
-    first_name = fasilitator.split()[0]  # Ambil nama depan
-    users = sheet_user.get_all_records()
-    fasilitator = None
+fasilitator = None
 for user in users:
     if str(user["Chat ID"]) == chat_id:
         fasilitator = user["Nama Fasilitator"]
@@ -115,6 +111,7 @@ if fasilitator is None:
     first_name = "Fasilitator"
 else:
     first_name = fasilitator.split()[0]
+
 
 
     response = client_openai.chat.completions.create(
