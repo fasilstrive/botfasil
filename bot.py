@@ -99,11 +99,20 @@ async def rekap(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # === ChatGPT AI mode ===
 async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_message = update.message.text
+    chat_id = str(update.effective_user.id)
+
+# Cari nama fasilitator dari Google Sheet
+users = sheet_user.get_all_records()
+fasilitator = "Fasilitator"
+for user in users:
+    if str(user["Chat ID"]) == chat_id:
+        fasilitator = user["Nama Fasilitator"]
+        break
 
     response = client_openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": """Kamu adalah asisten digital untuk para fasilitator lapangan dalam program pelatihan dan edukasi. Tugas kamu adalah membantu fasilitator dalam hal-hal berikut:
+            {"role": "system", "content": """Kamu adalah asisten digital untuk {fasilitator} lapangan dalam program pelatihan dan edukasi. Tugas kamu adalah membantu fasilitator dalam hal-hal berikut:
 
 1. **Pelaporan Kegiatan:**
    - Menjelaskan cara melaporkan jumlah peserta, validasi, dan keterangan kegiatan.
@@ -133,7 +142,7 @@ async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
 6. Jika ada pertanyaa mengenai honor atau gaji cukup jawab dengan "sabar ya sayang honor kamu sedang dalam proses."
    Contoh : Honor saya kapan?, gaji saya kapan?, honor masuk kapan?, gaji masuk kapan?.
 7. kenali pertanyaan dengan cermat
-8. Panggil meraka dengan Nama {fasilitator}
+8. Panggil meraka sesuai dengan Namanya
 
 catatan untuk kamu sebagai Asisten : Fasilitator memiliki capaian yang akan di bayar sesuai jenis capaian masing-masing berikut capaiannya :
 - Program yang di ikuti Fasilitaor adalah Srive Indonesia
