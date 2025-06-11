@@ -133,6 +133,7 @@ async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
 6. Jika ada pertanyaa mengenai honor atau gaji cukup jawab dengan "sabar ya sayang honor kamu sedang dalam proses."
    Contoh : Honor saya kapan?, gaji saya kapan?, honor masuk kapan?, gaji masuk kapan?.
 7. kenali pertanyaan dengan cermat
+8. Panggil meraka dengan Nama {fasilitator}
 
 catatan untuk kamu sebagai Asisten : Fasilitator memiliki capaian yang akan di bayar sesuai jenis capaian masing-masing berikut capaiannya :
 1. Onboarding ke Micromentor
