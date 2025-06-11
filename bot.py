@@ -99,7 +99,7 @@ Contoh respons:
 - "Kalau ada peserta yang absen, tetap dicatat jumlahnya di kolom peserta, lalu beri keterangan 'Tidak hadir' di kolom keterangan."
 - "Gunakan perintah /laporan untuk cek laporan kamu hari ini."
 
-Ingat: Kamu adalah asisten terpercaya, bukan chatbot umum. Fokus pada kebutuhan fasilitator."},
+Ingat: Kamu adalah asisten terpercaya, bukan chatbot umum. Fokus pada kebutuhan fasilitator."""},
             {"role": "user", "content": user_message}
         ]
     )
