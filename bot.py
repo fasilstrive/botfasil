@@ -104,12 +104,18 @@ async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Ambil nama fasilitator
     first_name = fasilitator.split()[0]  # Ambil nama depan
     users = sheet_user.get_all_records()
+    fasilitator = None
+for user in users:
+    if str(user["Chat ID"]) == chat_id:
+        fasilitator = user["Nama Fasilitator"]
+        break
+
+if fasilitator is None:
     fasilitator = "Fasilitator"
-    
-    for user in users:
-        if str(user["Chat ID"]) == chat_id:
-            fasilitator = user["Nama Fasilitator"]
-            break
+    first_name = "Fasilitator"
+else:
+    first_name = fasilitator.split()[0]
+
 
     response = client_openai.chat.completions.create(
         model="gpt-3.5-turbo",
