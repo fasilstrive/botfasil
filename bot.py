@@ -1,6 +1,7 @@
 import logging
 import os
 import gspread
+import requests  # Tambahan
 from dotenv import load_dotenv
 from oauth2client.service_account import ServiceAccountCredentials
 from telegram import Update
@@ -13,6 +14,7 @@ load_dotenv()
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 SPREADSHEET_NAME = os.getenv("SPREADSHEET_NAME")
+WEBAPP_REKAP_URL = os.getenv("WEBAPP_REKAP_URL")  # Tambahan: URL Web App GAS
 
 # === Setup Google Sheets ===
 SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -63,6 +65,37 @@ async def laporan(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         await update.message.reply_text(f"Belum ada laporan untuk {fasilitator}")
 
+# === Command /rekap (panggil GAS Web App) ===
+async def rekap(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = str(update.effective_user.id)
+    users = sheet_user.get_all_records()
+
+    fasilitator = None
+    for user in users:
+        if str(user["Chat ID"]) == chat_id:
+            fasilitator = user["Nama Fasilitator"]
+            break
+
+    if fasilitator is None:
+        await update.message.reply_text("Kamu belum terdaftar! Kirim pesan apa saja dulu untuk mendaftar.")
+        return
+
+    try:
+        response = requests.post(
+            WEBAPP_REKAP_URL,  # URL GAS Web App kamu
+            json={"chat_id": chat_id, "nama": fasilitator},
+            timeout=10
+        )
+
+        if response.status_code == 200:
+            await update.message.reply_text("Rekap kamu sedang diproses dan akan segera dikirim.")
+        else:
+            await update.message.reply_text("Gagal mengirim permintaan rekap. Coba lagi nanti.")
+            logging.error(f"Gagal kirim ke WebApp GAS: {response.status_code} - {response.text}")
+    except Exception as e:
+        await update.message.reply_text("Terjadi kesalahan saat memproses rekap.")
+        logging.exception("Error saat kirim ke WebApp GAS")
+
 # === ChatGPT AI mode ===
 async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_message = update.message.text
@@ -70,36 +103,7 @@ async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     response = client_openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": """Kamu adalah FasilBot, asisten digital untuk para fasilitator lapangan dalam program pelatihan dan edukasi. Tugas kamu adalah membantu fasilitator dalam hal-hal berikut:
-
-1. **Pelaporan Kegiatan:**
-   - Menjelaskan cara melaporkan jumlah peserta, validasi, dan keterangan kegiatan.
-   - Mengarahkan fasilitator untuk menggunakan perintah /laporan untuk melihat laporan mereka.
-   - Memberikan informasi seputar format laporan yang baik dan benar.
-
-2. **Kendala Lapangan:**
-   - Memberikan saran jika fasilitator mengalami kendala saat mengumpulkan data peserta.
-   - Menjawab pertanyaan seputar teknis pelaporan (misalnya: tidak bisa akses Google Sheet, peserta tidak hadir, atau ada data yang tidak valid).
-   - Membantu mengatasi kesalahan umum seperti kesalahan input data atau tidak munculnya laporan.
-
-3. **Pendaftaran dan Hak Akses:**
-   - Menjelaskan bahwa fasilitator harus mengirim pesan apapun agar bisa terdaftar otomatis.
-   - Memberi tahu jika chat ID belum terdaftar dan bagaimana cara memperbaikinya.
-
-4. **Batasan Bot:**
-   - Tidak menjawab pertanyaan di luar topik pelaporan fasilitator.
-   - Jika ada pertanyaan di luar konteks, kamu bisa menjawab: "Mohon maaf, saya hanya bisa membantu seputar pelaporan dan kendala fasilitator."
-
-5. **Gaya Komunikasi:**
-   - Gunakan gaya bahasa sopan, ramah, profesional, dan tidak kaku.
-   - Sampaikan informasi secara singkat, padat, dan mudah dipahami.
-
-Contoh respons:
-- "Kalau laporan kamu belum muncul, coba pastikan kamu sudah mengisi Google Sheet dengan benar dan sesuai format ya."
-- "Kalau ada peserta yang absen, tetap dicatat jumlahnya di kolom peserta, lalu beri keterangan 'Tidak hadir' di kolom keterangan."
-- "Gunakan perintah /laporan untuk cek laporan kamu hari ini."
-
-Ingat: Kamu adalah asisten terpercaya, bukan chatbot umum. Fokus pada kebutuhan fasilitator."""},
+            {"role": "system", "content": """Kamu adalah FasilBot, asisten digital untuk para fasilitator lapangan dalam program pelatihan dan edukasi..."""},
             {"role": "user", "content": user_message}
         ]
     )
@@ -113,6 +117,7 @@ if __name__ == "__main__":
 
     app.add_handler(CommandHandler("start", register_user))
     app.add_handler(CommandHandler("laporan", laporan))
+    app.add_handler(CommandHandler("rekap", rekap))  # DITAMBAHKAN
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, chatgpt))
 
     print("Bot aktif...")
