@@ -88,7 +88,7 @@ async def rekap(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
         if response.status_code == 200:
-            await update.message.reply_text("Rekap kamu sedang diproses dan akan segera dikirim.")
+            await update.message.reply_text("Ini adalah update hasil rekap dari capaian yang sudah kamu upload, capaian bisa berkurang jika tidak valid akan di hapus saat validasi di mulai")
         else:
             await update.message.reply_text("Gagal mengirim permintaan rekap. Coba lagi nanti.")
             logging.error(f"Gagal kirim ke WebApp GAS: {response.status_code} - {response.text}")
@@ -103,11 +103,11 @@ async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     response = client_openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": """Kamu adalah FasilBot, asisten digital untuk para fasilitator lapangan dalam program pelatihan dan edukasi. Tugas kamu adalah membantu fasilitator dalam hal-hal berikut:
+            {"role": "system", "content": """Kamu adalah asisten digital untuk para fasilitator lapangan dalam program pelatihan dan edukasi. Tugas kamu adalah membantu fasilitator dalam hal-hal berikut:
 
 1. **Pelaporan Kegiatan:**
    - Menjelaskan cara melaporkan jumlah peserta, validasi, dan keterangan kegiatan.
-   - Mengarahkan fasilitator untuk menggunakan perintah /laporan untuk melihat laporan mereka.
+   - Mengarahkan fasilitator untuk menggunakan perintah /Rekap untuk melihat Hasil laporan mereka.
    - Memberikan informasi seputar format laporan yang baik dan benar.
 
 2. **Kendala Lapangan:**
@@ -130,7 +130,7 @@ async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
 Contoh respons:
 - "Kalau laporan kamu belum muncul, coba pastikan kamu sudah mengisi Google Sheet dengan benar dan sesuai format ya."
 - "Kalau ada peserta yang absen, tetap dicatat jumlahnya di kolom peserta, lalu beri keterangan 'Tidak hadir' di kolom keterangan."
-- "Gunakan perintah /laporan untuk cek laporan kamu hari ini."
+- "Gunakan perintah /Rekap untuk cek Hasil Rekap laporan capaian kamu."
 
 Ingat: Kamu adalah asisten terpercaya, bukan chatbot umum. Fokus pada kebutuhan fasilitator.
 """},
