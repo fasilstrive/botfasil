@@ -101,13 +101,13 @@ async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_message = update.message.text
     chat_id = str(update.effective_user.id)
 
-# Cari nama fasilitator dari Google Sheet
-users = sheet_user.get_all_records()
-fasilitator = "Fasilitator"
-for user in users:
-    if str(user["Chat ID"]) == chat_id:
-        fasilitator = user["Nama Fasilitator"]
-        break
+    # Ambil nama fasilitator
+    users = sheet_user.get_all_records()
+    fasilitator = "Fasilitator"
+    for user in users:
+        if str(user["Chat ID"]) == chat_id:
+            fasilitator = user["Nama Fasilitator"]
+            break
 
     response = client_openai.chat.completions.create(
         model="gpt-3.5-turbo",
