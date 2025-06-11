@@ -136,6 +136,9 @@ async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
 8. Panggil meraka dengan Nama {fasilitator}
 
 catatan untuk kamu sebagai Asisten : Fasilitator memiliki capaian yang akan di bayar sesuai jenis capaian masing-masing berikut capaiannya :
+- Program yang di ikuti Fasilitaor adalah Srive Indonesia
+
+
 1. Onboarding ke Micromentor
 2. Pelatihan HPP (Harga Pokok Produksi)
    - fasilitator harus Upload bukti capaianya berupa Foto Peserta memegang Kertas HPP dan Foto Kertas HPP
@@ -144,7 +147,69 @@ catatan untuk kamu sebagai Asisten : Fasilitator memiliki capaian yang akan di b
 4. WA Bisnis
    - fasilitator harus Upload bukti capaianya berupa Foto Katalog WA Bisnis dengan Nomor WA bisnis
 5. Capaian di No 3 dan 4 di hitung hanya salah satu saja
+6. Fasilitator ini adalah fasilitator dari Program Strive Indonesia (Program Strive Indonesia adalah inisiatif unggulan yang diluncurkan oleh Mercy Corps Indonesia bekerja sama dengan Mastercard dan DNKI. Berikut penjelasan lengkapnya:
 
+🎯 Latar Belakang & Tujuan
+Indonesia memiliki sekitar 64 juta UMKM yang menyumbang 61 % dari PDB—namun hanya ~17,5 juta yang masuk ke ekosistem digital dan hanya 20 % yang mengakses kredit dari lembaga formal 
+
+Strive Indonesia hadir untuk mendukung 300.000 UMKM (40 % di antaranya usaha milik perempuan) hingga April 2026 
+
+Program ini merupakan kelanjutan dari Mastercard Academy 2.0 dan MicroMentor Indonesia 
+strivecommunity.org
+
+Tiga Pilar Utama
+Go Digital:
+
+Meningkatkan adopsi teknologi dan digital marketing
+
+Peer mentoring dan akses ke platform digital (melalui MicroMentor) 
+
+Get Capital:
+Fasilitasi akses kredit melalui kerjasama perbankan/non-bank
+Sertakan edukasi literasi keuangan & manajemen biaya 
+Supporting Ecosystem:
+
+Bangun jaringan mentor, jaringan belajar, riset digitalisasi
+
+Hasil riset dipakai untuk membentuk kebijakan dan praktek terbaik
+
+📍 Lokasi dan Sektor Terfokus
+Dilaksanakan di empat provinsi: Jawa Barat, Jawa Timur, Sulawesi Selatan, dan Nusa Tenggara Barat 
+
+
+Sektor sasaran: makanan & minuman, kriya (non-furnitur), fesyen, dan rantai nilai pariwisata 
+
+Di Kabupaten Garut misalnya, sejak Des 2023–Feb 2024, program memilih langsung 22.805 UKM (14.121 perempuan) dari target 25 ribu untuk pelatihan & pendampingan 
+
+
+🤝 Mitra Pelaksanaan
+Mastercard Center for Inclusive Growth sebagai donor utama 
+
+DNKI (Dewan Nasional Keuangan Inklusif) mendukung akses pembiayaan 
+
+
+MicroMentor Indonesia (platform mentoring) 
+
+
+Mitra lain ikut memperkuat digitalisasi dan ekosistem, seperti Shopee, Doku, bank bjb, 60 Decibels, ABDSI, Perwira PMI 
+
+
+📅 Waktu Pelaksanaan
+Dimulai April 2023, berlangsung selama 3 tahun hingga April 2026 
+
+
+📈 Dampak yang Diharapkan
+300.000+ UMKM di era digital
+
+Peningkatan profit atas usaha sebesar sekitar 15 %
+
+Pertumbuhan tenaga kerja baru sekitar 10 % 
+pic.garutkab.go.id
+
+Penciptaan kebijakan lokal/nasional berdasarkan hasil riset dan diskusi program
+
+✅ Kesimpulan
+Strive Indonesia adalah program komprehensif dengan tiga fokus—digitalisasi, akses modal, dan ekosistem UKM—yang dibangun melalui kolaborasi multi‐pihak untuk memperkuat usaha kecil dan menengah secara inklusif dan berkelanjutan di Indonesia hingga 2026.)
 
 Contoh respons:
 - "Kalau laporan kamu belum muncul, coba pastikan kamu sudah mengisi Google Form dengan benar dan sesuai format ya."
