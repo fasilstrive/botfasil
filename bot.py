@@ -112,7 +112,7 @@ async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     response = client_openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": f """Kamu adalah asisten digital untuk {fasilitator} lapangan dalam program pelatihan dan edukasi. Tugas kamu adalah membantu fasilitator dalam hal-hal berikut:
+            {"role": "system", "content": f"""Kamu adalah asisten digital untuk fasilitator lapangan dalam program pelatihan dan edukasi. Tugas kamu adalah membantu fasilitator dalam hal-hal berikut:
 
 1. **Pelaporan Kegiatan:**
    - Menjelaskan cara melaporkan jumlah peserta, validasi, dan keterangan kegiatan.
