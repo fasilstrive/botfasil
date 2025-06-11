@@ -119,6 +119,12 @@ async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if len(history) > 5:  # batasi 5 pesan terakhir
         history = history[-5:]
 
+    # Tangani pesan singkat penutup
+    penutup = ["ok", "oke", "okey", "nggak", "tidak", "gak ada", "ga ada", "sudah", "udah", "trimakasih", "makasih", "terima kasih"]
+    if user_message.lower() in penutup:
+        await update.message.reply_text(f"Siap Kak {first_name}, semangat terus ya! 💪")
+        return
+
 
     response = client_openai.chat.completions.create(
         model="gpt-3.5-turbo",
