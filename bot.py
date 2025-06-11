@@ -114,6 +114,11 @@ async def chatgpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         first_name = fasilitator.split()[0]
 
+    history = context.user_data.get("history", [])
+    history.append({"role": "user", "content": user_message})
+    if len(history) > 5:  # batasi 5 pesan terakhir
+        history = history[-5:]
+
 
     response = client_openai.chat.completions.create(
         model="gpt-3.5-turbo",
